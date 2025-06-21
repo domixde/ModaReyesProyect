@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detalle del Producto - Tienda de Vestidos</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/detalle.css" />
+</head>
+
+<body class="center-title">
+
+    <header class="main-header">
+
+        <button class="btn-menu" id="menu-toggle" aria-label="Abrir menú">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#D4AF37" viewBox="0 0 24 24"
+                aria-hidden="true" focusable="false">
+                <rect y="4" width="24" height="2" rx="1"></rect>
+                <rect y="11" width="24" height="2" rx="1"></rect>
+                <rect y="18" width="24" height="2" rx="1"></rect>
+            </svg>
+            <span class="texto-menu">Menú</span>
+        </button>
+
+        <nav id="menu-lateral" class="menu-lateral" aria-label="Menú de navegación">
+            <ul class="menu-opciones">
+                <li><a href="index.html" aria-label="Inicio"><i class="fas fa-home"></i></a></li>
+                <li><a href="catalogo.html" aria-label="Catálogo"><i class="fas fa-tshirt"></i></a></li>
+                <li><a href="nosotros.html" aria-label="Nosotros"><i class="fas fa-users"></i></a></li>
+                <li><a href="contacto.html" aria-label="Contáctanos"><i class="fas fa-envelope"></i></a></li>
+                <li><a href="https://www.facebook.com/tuPagina" target="_blank" rel="noopener noreferrer"
+                        aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com/tuPerfil" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li>
+                    <a href="https://www.tiktok.com/@creaciones.reyes.c" target="_blank" rel="noopener noreferrer"
+                        aria-label="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <h1 class="titulo-tienda">MODA REYES</h1>
+
+        <div class="busqueda-carrito">
+
+            <!-- Contenedor para botón búsqueda, ocultar en páginas sin búsqueda -->
+            <div class="btn-buscar-container">
+                <button class="btn-buscar" aria-label="Buscar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#D4AF37" viewBox="0 0 24 24">
+                        <path
+                            d="M21.53 20.47l-5.2-5.2a7.5 7.5 0 1 0-1.06 1.06l5.2 5.2a.75.75 0 1 0 1.06-1.06zM10.5 17a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13z" />
+                    </svg>
+                    <span class="texto-buscar">Buscar</span>
+                </button>
+            </div>
+
+        </div>
+
+    </header>
+
+    <a href="catalogo.html" class="volver"
+        style="max-width:200px; margin: 3rem auto; display:block; text-align:center;">&larr; Volver al catálogo</a>
+
+    <div class="detalle-container" aria-live="polite">
+        <div class="imagenes-carrusel" aria-label="Imágenes del producto">
+            <span class="flecha izquierda" role="button" aria-label="Imagen anterior">&#10094;</span>
+            <img src="" alt="Imagen producto" id="imagen-principal" />
+            <span class="flecha derecha" role="button" aria-label="Imagen siguiente">&#10095;</span>
+        </div>
+
+        <div class="info-producto">
+            <h2 id="nombre"></h2>
+            <p><strong>Categoría:</strong> <span id="categoria"></span></p>
+            <p><strong>Precio:</strong> S/<span id="precio"></span></p>
+            <p><strong>Tallas disponibles:</strong> <span id="tallas"></span></p>
+            <p><strong>Stock:</strong> <span id="stock"></span></p>
+            <p id="descripcion"></p>
+            <p><strong>Selecciona talla:</strong></p>
+            <select id="select-talla" aria-label="Seleccionar talla">
+                <!-- Opciones se cargarán dinámicamente -->
+            </select>
+            <p><strong>Cantidad:</strong></p>
+            <input type="number" id="input-cantidad" min="1" value="1" aria-label="Cantidad" style="width: 60px;">
+
+            <button id="agregar-carrito">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <script src="../assets/js/menu.js" type="module"></script>
+    <script src="../assets/js/detalle.js" type="module"></script>
+    <script src="../assets/js/lateral.js" type="module"></script>
+
+</body>
+    
+<footer>
+        <p>&copy; 2025 Moda Reyes</p>
+    </footer>
+
+</html>
