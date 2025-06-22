@@ -121,7 +121,7 @@ flechaDerecha.addEventListener('click', () => {
   mostrarImagen(indiceImagen + 1);
 });
 
-inputCantidad.addEventListener('input', () => {
+inputCantidad.addEventListener('blur', () => {
   let val = parseInt(inputCantidad.value, 10);
   if (isNaN(val) || val < 1) val = 1;
   if (val > stockActual) val = stockActual;
