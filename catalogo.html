@@ -9,8 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/styles.css" />
-  <link rel="stylesheet" href="../assets/css/catalogo.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/catalogo.css" />
 </head>
 
 <body class="catalogo-page">
@@ -54,7 +54,7 @@
     </nav>
 
     <h1 class="titulo-tienda">
-      <img src="../assets/img/logoxd.png" class="logo-titulo">
+      <img src="assets/img/logoxd.png" class="logo-titulo">
       MODA REYES
     </h1>
 
@@ -76,7 +76,6 @@
     </div>
   </header>
 
-  <!-- Contenedor para la búsqueda desplegable -->
   <div id="busqueda-container" class="busqueda-container" hidden>
     <input type="text" id="input-buscar" placeholder="Buscar vestido..." aria-label="Buscar vestido" />
   </div>
@@ -133,8 +132,7 @@
             <button class="filtro-color" data-color="Amarillo" style="background:#ff0" title="Amarillo"></button>
             <button class="filtro-color" data-color="Naranja" style="background:#fa0" title="Naranja"></button>
             <button class="filtro-color" data-color="Morado" style="background:#80f" title="Morado"></button>
-            <!-- más colores -->
-          </div>
+            </div>
         </div>
 
         <div class="filtro-precio">
@@ -152,8 +150,7 @@
           <div class="materiales-ocultos" hidden>
             <button class="filtro-material-btn" data-material="Poliéster">Poliéster</button>
             <button class="filtro-material-btn" data-material="Rayón">Rayón</button>
-            <!-- más materiales -->
-          </div>
+            </div>
         </div>
 
         <button id="btn-borrar-filtros" disabled>Borrar filtros</button>
@@ -161,8 +158,7 @@
       </aside>
 
       <section id="productos-container" class="catalogo" aria-live="polite" aria-label="Catálogo de productos">
-        <!-- Productos cargarán aquí -->
-      </section>
+        </section>
     </div>
   </main>
 
@@ -171,15 +167,13 @@
     <p>&copy; 2025 Moda Reyes</p>
   </footer>
 
-  <!-- Aquí agregamos la miniventana del carrito -->
   <aside id="carrito-ventana" class="carrito-ventana" aria-label="Carrito de compras" aria-hidden="true" hidden>
     <header class="carrito-header">
       <h2>Cesta (<span id="carrito-cantidad">0</span>)</h2>
       <button id="cerrar-carrito" aria-label="Cerrar carrito">&times;</button>
     </header>
     <div id="carrito-items" class="carrito-items">
-      <!-- Aquí se listarán los productos agregados al carrito -->
-    </div>
+      </div>
     <div class="carrito-footer">
       <div id="carrito-total" class="carrito-total">
         Total: <span id="total-importe">S/0.00</span>
@@ -188,8 +182,8 @@
     </div>
   </aside>
 
-  <script src="../assets/js/menu.js" type="module"></script>
-  <script src="../assets/js/catalogo.js" type="module"></script>
+  <script src="assets/js/menu.js" type="module"></script>
+  <script src="assets/js/catalogo.js" type="module"></script>
 </body>
 
 </html>
