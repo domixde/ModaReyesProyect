@@ -1,0 +1,178 @@
+/* ============================== */
+/* == nosotros.css - Moda Reyes == */
+/* ============================== */
+
+.nosotros {
+  padding: 120px 20px 60px;
+  text-align: center;
+  color: #333;
+  background-color: transparent; /* ❌ Sin fondo blanco */
+}
+
+.nosotros .hero-contenido h2 {
+  font-size: 3.5rem;
+  font-family: 'Lora', serif;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1.2px;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 1s ease-out;
+}
+
+.nosotros .hero-contenido p {
+  font-size: 1.7rem;
+  font-weight: 300;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 1.3s ease-out;
+}
+
+.nosotros video {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin-top: 2rem;
+}
+
+.nosotros h3 {
+  font-size: 2rem;
+  color: #b99623;
+  font-family: 'Lora', serif;
+  margin-top: 3rem;
+  animation: fadeInUp 1.5s ease-out;
+}
+
+.nosotros .lista-ventajas {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 1rem auto 0;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  animation: fadeInUp 1.6s ease-out;
+}
+
+.nosotros .lista-ventajas li {
+  margin-bottom: 1rem;
+}
+
+.nosotros .lista-ventajas i {
+  color: #b99623;
+  margin-right: 10px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contenedor-nosotros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.texto-nosotros {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.video-nosotros {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.video-nosotros video {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.titulo-video {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  color: #444;
+  margin-bottom: 1rem;
+  font-family: 'Lora', serif;
+}
+
+.contenedor-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedor-nosotros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.texto-nosotros {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.video-nosotros {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.contenedor-video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-nosotros video {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.titulo-video {
+  font-size: 1.7rem;
+  font-weight: 300;
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-family: 'Lora', serif;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+.nosotros .lista-ventajas {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 1rem auto 0;
+  text-align: left;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  font-family: 'Lora', serif;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1.6s ease-out;
+}
