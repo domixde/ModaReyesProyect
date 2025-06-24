@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const imagenPrincipal = document.getElementById('imagen-principal'); // debe ser un <div>
+const imagenPrincipal = document.getElementById('imagen-principal');
 const nombreEl = document.getElementById('nombre');
 const categoriaEl = document.getElementById('categoria');
 const precioEl = document.getElementById('precio');
@@ -34,6 +34,7 @@ let imagenes = [];
 let indiceImagen = 0;
 let stockActual = 0;
 let videoActual = null;
+let producto = null; // <-- la variable ahora es global
 
 const params = new URLSearchParams(window.location.search);
 const productoId = params.get('id');
@@ -56,7 +57,7 @@ async function cargarProducto(id) {
     return;
   }
 
-  const producto = docSnap.data();
+  producto = docSnap.data(); // asignamos a la variable global
 
   nombreEl.textContent = producto.nombre || "";
   categoriaEl.textContent = producto.categoria || "";
@@ -90,8 +91,7 @@ async function cargarProducto(id) {
     imagenPrincipal.innerHTML = "<p>No hay imágenes disponibles</p>";
   }
 
-  // Cargar tallas en el select
-  selectTalla.innerHTML = ''; // limpiar antes
+  selectTalla.innerHTML = '';
   tallasArray.forEach(talla => {
     const option = document.createElement('option');
     option.value = talla;
@@ -114,12 +114,12 @@ function mostrarImagen(indice) {
 
   if (videoActual && !videoActual.paused) {
     videoActual.pause();
-    videoActual.currentTime = 0; 
+    videoActual.currentTime = 0;
     videoActual = null;
   }
 
   const url = imagenes[indiceImagen];
-  const esVideo = url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg');
+  const esVideo = url.includes('.mp4') || url.includes('.webm') || url.includes('.ogg');
 
   if (esVideo) {
     imagenPrincipal.innerHTML = `
@@ -181,7 +181,7 @@ agregarCarritoBtn.addEventListener('click', () => {
       id: productoId,
       nombre: nombreEl.textContent,
       precio: parseFloat(precioEl.textContent),
-      imagen: imagenes[indiceImagen] || '',
+      imagen: producto.imagen || '', // se usa solo la imagen principal
       talla: tallaSeleccionada,
       cantidad: cantidad,
       stock: stockActual
