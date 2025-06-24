@@ -2,12 +2,10 @@
 /* === detalle.css - Estilos Detalle ====== */
 /* ======================================== */
 
-/* Fondo general y fuente global */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #c6cbcf;
-  background-image:
-    linear-gradient(60deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(255,255,255,0.15) 100%);
+  background-image: linear-gradient(60deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(255,255,255,0.15) 100%);
   background-size: 200% 200%;
   animation: shineMove 8s linear infinite;
   background-attachment: fixed;
@@ -26,7 +24,6 @@ body {
   100% { background-position: -200% 0; }
 }
 
-/* Contenedor principal del detalle */
 .detalle-container {
   max-width: 900px;
   margin: 2rem auto;
@@ -40,18 +37,18 @@ body {
   justify-content: center;
   color: #444;
   font-family: 'Roboto', sans-serif;
-  align-items: flex-start; /* que no estire verticalmente */
+  align-items: flex-start;
 }
 
 /* Carrusel de imágenes */
 .imagenes-carrusel {
-  display: inline-block;      /* o block */
+  display: inline-block;
   max-width: 400px;
   width: auto;
   background-color: #f5f5f5;
   box-shadow: 0 6px 15px rgb(185 149 35 / 0.2);
   border-radius: 12px;
-  overflow: visible;          /* para que no recorte */
+  overflow: visible;
   position: relative;
 }
 
@@ -63,8 +60,8 @@ body {
   display: block;
   max-width: 100%;
   width: auto;
-  height: auto;      /* importante para que no estire */
-  max-height: 450px; /* límite máximo */
+  height: auto;
+  max-height: 450px;
   border-radius: 12px;
   object-fit: contain;
 }
@@ -78,7 +75,12 @@ body {
   width: 100%;
   border-radius: 12px;
   object-fit: contain;
-  background-color: #000; /* útil para videos con transparencia */
+  background-color: #000;
+}
+
+/* ✅ Nueva regla para que el video no bloquee las flechas */
+.imagenes-carrusel video {
+  pointer-events: none;
 }
 
 /* Flechas de navegación */
@@ -95,6 +97,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(185, 149, 35, 0.5);
   transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 20; /* ✅ Para que estén por encima del video */
 }
 
 .flecha:hover {
@@ -120,7 +123,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Título del producto */
 .info-producto h2 {
   font-family: 'Lora', serif;
   font-size: 2.2rem;
@@ -134,7 +136,6 @@ body {
   animation: brillo 3s ease-in-out infinite alternate;
 }
 
-/* Animación brillo (igual que en catalogo.css) */
 @keyframes brillo {
   0% {
     text-shadow:
@@ -148,7 +149,6 @@ body {
   }
 }
 
-/* Texto descriptivo */
 .info-producto p {
   margin: 0.6rem 0;
   font-size: 1.05rem;
@@ -156,7 +156,6 @@ body {
   line-height: 1.5;
 }
 
-/* Stock agotado */
 .stock-agotado {
   color: #ff4d4d;
   font-weight: 700;
@@ -164,7 +163,6 @@ body {
   font-size: 1rem;
 }
 
-/* Botón agregar al carrito */
 button#agregar-carrito {
   margin-top: 2rem;
   padding: 14px 28px;
@@ -194,7 +192,6 @@ button#agregar-carrito:disabled {
   box-shadow: none;
 }
 
-/* Botón volver */
 a.volver {
   display: block;
   margin: 2rem auto 2.5rem auto;
@@ -217,7 +214,6 @@ a.volver:hover {
   color: white;
 }
 
-/* Responsive para detalle */
 @media (max-width: 700px) {
   .detalle-container {
     flex-direction: column;
