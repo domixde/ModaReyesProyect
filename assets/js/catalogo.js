@@ -513,13 +513,11 @@ document.addEventListener('click', (e) => {
 function actualizarCarritoUI() {
   const totalCantidad = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
-  // Actualizar contador pequeño sobre el botón carrito
   if (carritoCantidadBoton) {
     carritoCantidadBoton.textContent = totalCantidad;
     carritoCantidadBoton.style.display = totalCantidad > 0 ? 'inline-block' : 'none';
   }
 
-  // Actualizar texto "Cesta (0)" dentro del carrito
   const carritoCantidadTexto = document.getElementById('carrito-cantidad');
   if (carritoCantidadTexto) {
     carritoCantidadTexto.textContent = totalCantidad;
@@ -531,7 +529,6 @@ function actualizarCarritoUI() {
     btnTramitar.disabled = true;
   } else {
     btnTramitar.disabled = false;
-
     carritoItemsContainer.innerHTML = '';
     let total = 0;
 
@@ -541,11 +538,20 @@ function actualizarCarritoUI() {
       const div = document.createElement('div');
       div.classList.add('carrito-item');
 
+      const esVideo = item.imagen && (item.imagen.endsWith('.mp4') || item.imagen.endsWith('.webm') || item.imagen.endsWith('.ogg'));
+
+      const mediaElement = esVideo
+        ? `<video class="carrito-media" autoplay muted loop playsinline>
+             <source src="${item.imagen}" type="video/mp4">
+             Tu navegador no soporta video.
+           </video>`
+        : `<img src="${item.imagen}" alt="${item.nombre}" class="carrito-media" />`;
+
       div.innerHTML = `
-        <img src="${item.imagen}" alt="${item.nombre}" class="carrito-img" />
+        ${mediaElement}
         <div class="carrito-info">
           <h3>${item.nombre}</h3>
-          <p><strong>Precio:</strong>  S/${item.precio.toFixed(2)}</p>
+          <p><strong>Precio:</strong> S/${item.precio.toFixed(2)}</p>
           <p><strong>Cantidad:</strong> 
             <button class="btn-cantidad" data-index="${index}" data-accion="restar" aria-label="Disminuir cantidad">-</button>
             ${item.cantidad}
@@ -562,19 +568,15 @@ function actualizarCarritoUI() {
     carritoTotalImporte.textContent = 'S/' + total.toFixed(2);
   }
 
-  // Guardar carrito actualizado en localStorage **cada vez que actualices UI**
   localStorage.setItem('carrito', JSON.stringify(carrito));
 
-  // Agregar event listeners a botones dentro del carrito
   carritoItemsContainer.querySelectorAll('.btn-cantidad').forEach(btn => {
     btn.addEventListener('click', (event) => {
       event.stopPropagation();
-
       const idx = parseInt(btn.dataset.index, 10);
       const accion = btn.dataset.accion;
 
       if (accion === 'sumar') {
-        // Validar stock antes de aumentar
         if (carrito[idx].cantidad < carrito[idx].stock) {
           carrito[idx].cantidad++;
         } else {
@@ -589,8 +591,7 @@ function actualizarCarritoUI() {
 
   carritoItemsContainer.querySelectorAll('.btn-eliminar').forEach(btn => {
     btn.addEventListener('click', (event) => {
-      event.stopPropagation(); // Evitar cierre del carrito
-
+      event.stopPropagation();
       const idx = parseInt(btn.dataset.index, 10);
       carrito.splice(idx, 1);
       actualizarCarritoUI();
