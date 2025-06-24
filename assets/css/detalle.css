@@ -69,6 +69,18 @@ body {
   object-fit: contain;
 }
 
+.media-producto video,
+.media-producto img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 450px;
+  width: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+  background-color: #000; /* útil para videos con transparencia */
+}
+
 /* Flechas de navegación */
 .flecha {
   position: absolute;
