@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const imagenPrincipal = document.getElementById('imagen-principal');
+const imagenPrincipal = document.getElementById('imagen-principal'); // debe ser un <div>
 const nombreEl = document.getElementById('nombre');
 const categoriaEl = document.getElementById('categoria');
 const precioEl = document.getElementById('precio');
@@ -33,6 +33,7 @@ const inputCantidad = document.getElementById('input-cantidad');
 let imagenes = [];
 let indiceImagen = 0;
 let stockActual = 0;
+let videoActual = null;
 
 const params = new URLSearchParams(window.location.search);
 const productoId = params.get('id');
@@ -84,9 +85,9 @@ async function cargarProducto(id) {
 
   if (imagenes.length > 0) {
     indiceImagen = 0;
-    imagenPrincipal.src = imagenes[indiceImagen];
+    mostrarImagen(indiceImagen);
   } else {
-    imagenPrincipal.alt = "No hay imágenes disponibles";
+    imagenPrincipal.innerHTML = "<p>No hay imágenes disponibles</p>";
   }
 
   // Cargar tallas en el select
@@ -110,7 +111,28 @@ function mostrarImagen(indice) {
   if (indice < 0) indice = imagenes.length - 1;
   if (indice >= imagenes.length) indice = 0;
   indiceImagen = indice;
-  imagenPrincipal.src = imagenes[indiceImagen];
+
+  if (videoActual && !videoActual.paused) {
+    videoActual.pause();
+    videoActual.currentTime = 0; 
+    videoActual = null;
+  }
+
+  const url = imagenes[indiceImagen];
+  const esVideo = url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg');
+
+  if (esVideo) {
+    imagenPrincipal.innerHTML = `
+      <video id="video-secundario" autoplay muted playsinline controls width="100%" height="auto">
+        <source src="${url}" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+      </video>`;
+    
+    videoActual = document.getElementById('video-secundario');
+  } else {
+    imagenPrincipal.innerHTML = `<img src="${url}" alt="Imagen del producto" style="width: 100%;">`;
+    videoActual = null;
+  }
 }
 
 flechaIzquierda.addEventListener('click', () => {
@@ -145,7 +167,6 @@ agregarCarritoBtn.addEventListener('click', () => {
     return;
   }
 
-  // Buscar si el producto con esa talla ya está en el carrito
   const indexExistente = carrito.findIndex(item => item.id === productoId && item.talla === tallaSeleccionada);
 
   if (indexExistente >= 0) {
@@ -190,11 +211,9 @@ function mostrarToast(mensaje) {
   toast.textContent = mensaje;
   container.appendChild(toast);
 
-  // Forzar reflow para animación
   void toast.offsetWidth;
   toast.classList.add('show');
 
-  // Remover después de 3 seg
   setTimeout(() => {
     toast.classList.remove('show');
     setTimeout(() => {
