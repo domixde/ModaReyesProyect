@@ -1,223 +1,263 @@
-// Importa las funciones necesarias de Firebase
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+/* ======================================== */
+/* === detalle.css - Estilos Detalle ====== */
+/* ======================================== */
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBspx-Hnnb-y-xXTr-z5lJj0_XEYppo2QM",
-    authDomain: "modareyes-59991.firebaseapp.com",
-    projectId: "modareyes-59991",
-    storageBucket: "modareyes-59991.firebasestorage.app",
-    messagingSenderId: "49086566305",
-    appId: "1:49086566305:web:44a0a1cb688c25f1f385e0",
-    measurementId: "G-CSN0MT6CXZ"
-};
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #c6cbcf;
+  background-image: linear-gradient(60deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(255,255,255,0.15) 100%);
+  background-size: 200% 200%;
+  animation: shineMove 8s linear infinite;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+@keyframes shineMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
-const imagenPrincipal = document.getElementById('imagen-principal');
-const nombreEl = document.getElementById('nombre');
-const categoriaEl = document.getElementById('categoria');
-const precioEl = document.getElementById('precio');
-const tallasEl = document.getElementById('tallas');
-const stockEl = document.getElementById('stock');
-const descripcionEl = document.getElementById('descripcion');
-const agregarCarritoBtn = document.getElementById('agregar-carrito');
+.detalle-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: rgba(230, 230, 230, 0.95);
+  padding: 50px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #444;
+  font-family: 'Roboto', sans-serif;
+  align-items: flex-start;
+}
 
-const flechaIzquierda = document.querySelector('.flecha.izquierda');
-const flechaDerecha = document.querySelector('.flecha.derecha');
+/* Carrusel de imágenes */
+.imagenes-carrusel {
+  display: inline-block;
+  max-width: 400px;
+  width: auto;
+  background-color: #f5f5f5;
+  box-shadow: 0 6px 15px rgb(185 149 35 / 0.2);
+  border-radius: 12px;
+  overflow: visible;
+  position: relative;
+}
 
-const selectTalla = document.getElementById('select-talla');
-const inputCantidad = document.getElementById('input-cantidad');
+.imagenes-carrusel:hover {
+  box-shadow: 0 8px 20px rgb(185 149 35 / 0.4);
+}
 
-let imagenes = [];
-let indiceImagen = 0;
-let stockActual = 0;
-let videoActual = null;
-let producto = null; // <-- la variable ahora es global
+.imagenes-carrusel img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: 450px;
+  border-radius: 12px;
+  object-fit: contain;
+}
 
-const params = new URLSearchParams(window.location.search);
-const productoId = params.get('id');
+.media-producto video,
+.media-producto img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 450px;
+  width: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+  background-color: #000;
+}
 
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+/* ✅ Nueva regla para que el video no bloquee las flechas */
+.imagenes-carrusel video {
+  pointer-events: none;
+}
 
-async function cargarProducto(id) {
-  if (!id) {
-    alert("No se especificó el producto.");
-    window.location.href = "productos.html";
-    return;
+/* Flechas de navegación */
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.8rem;
+  color: #b99623;
+  background: rgba(230, 230, 230, 0.85);
+  padding: 0 14px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(185, 149, 35, 0.5);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 20; /* ✅ Para que estén por encima del video */
+}
+
+.flecha:hover {
+  background: #b99623;
+  color: white;
+}
+
+.flecha.izquierda {
+  left: 12px;
+}
+
+.flecha.derecha {
+  right: 12px;
+}
+
+/* Información del producto */
+.info-producto {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #444;
+  font-family: 'Roboto', sans-serif;
+}
+
+.info-producto h2 {
+  font-family: 'Lora', serif;
+  font-size: 2.2rem;
+  color: #b99623;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  text-shadow:
+    0 0 6px rgba(185, 149, 35, 0.6),
+    0 0 10px rgba(212, 175, 55, 0.4);
+  animation: brillo 3s ease-in-out infinite alternate;
+}
+
+@keyframes brillo {
+  0% {
+    text-shadow:
+      0 0 6px rgba(185, 149, 35, 0.6),
+      0 0 10px rgba(212, 175, 55, 0.4);
   }
-
-  const docRef = doc(db, "productos", id);
-  const docSnap = await getDoc(docRef);
-
-  if (!docSnap.exists()) {
-    alert("Producto no encontrado.");
-    window.location.href = "productos.html";
-    return;
-  }
-
-  producto = docSnap.data(); // asignamos a la variable global
-
-  nombreEl.textContent = producto.nombre || "";
-  categoriaEl.textContent = producto.categoria || "";
-  precioEl.textContent = producto.precio || "";
-  descripcionEl.textContent = producto.descripcion || "";
-
-  const tallasArray = Array.isArray(producto.tallas) ? producto.tallas : [];
-  tallasEl.textContent = tallasArray.length > 0 ? tallasArray.join(', ') : "No disponible";
-
-  stockActual = producto.stock || 0;
-  stockEl.textContent = stockActual;
-
-  if (stockActual <= 0) {
-    stockEl.textContent = "Agotado";
-    stockEl.classList.add('stock-agotado');
-    agregarCarritoBtn.disabled = true;
-  } else {
-    stockEl.classList.remove('stock-agotado');
-    agregarCarritoBtn.disabled = false;
-  }
-
-  imagenes = producto.imagenes || [];
-  if (imagenes.length === 0 && producto.imagen) {
-    imagenes = [producto.imagen];
-  }
-
-  if (imagenes.length > 0) {
-    indiceImagen = 0;
-    mostrarImagen(indiceImagen);
-  } else {
-    imagenPrincipal.innerHTML = "<p>No hay imágenes disponibles</p>";
-  }
-
-  selectTalla.innerHTML = '';
-  tallasArray.forEach(talla => {
-    const option = document.createElement('option');
-    option.value = talla;
-    option.textContent = talla;
-    selectTalla.appendChild(option);
-  });
-
-  if (tallasArray.length === 0) {
-    selectTalla.disabled = true;
-    agregarCarritoBtn.disabled = true;
-  } else {
-    selectTalla.disabled = false;
+  100% {
+    text-shadow:
+      0 0 12px rgba(185, 149, 35, 1),
+      0 0 18px rgba(212, 175, 55, 0.8);
   }
 }
 
-function mostrarImagen(indice) {
-  if (indice < 0) indice = imagenes.length - 1;
-  if (indice >= imagenes.length) indice = 0;
-  indiceImagen = indice;
+.info-producto p {
+  margin: 0.6rem 0;
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.5;
+}
 
-  if (videoActual && !videoActual.paused) {
-    videoActual.pause();
-    videoActual.currentTime = 0;
-    videoActual = null;
+.stock-agotado {
+  color: #ff4d4d;
+  font-weight: 700;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+button#agregar-carrito {
+  margin-top: 2rem;
+  padding: 14px 28px;
+  background-color: #b99623;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  width: fit-content;
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(185, 149, 35, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button#agregar-carrito:hover:not(:disabled) {
+  background-color: #a3821b;
+  color: white;
+  box-shadow: 0 8px 20px rgba(163, 130, 27, 0.85);
+}
+
+button#agregar-carrito:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #999;
+  box-shadow: none;
+}
+
+a.volver {
+  display: block;
+  margin: 2rem auto 2.5rem auto;
+  color: #b99623;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  max-width: 220px;
+  border: 2px solid #b99623;
+  padding: 12px 0;
+  border-radius: 24px;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 12px rgba(185, 149, 35, 0.7);
+}
+
+a.volver:hover {
+  background-color: #a3821b;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .detalle-container {
+    flex-direction: column;
+    max-width: 95%;
   }
-
-  const url = imagenes[indiceImagen];
-  const esVideo = url.includes('.mp4') || url.includes('.webm') || url.includes('.ogg');
-
-  if (esVideo) {
-    imagenPrincipal.innerHTML = `
-      <video id="video-secundario" autoplay muted playsinline controls width="100%" height="auto">
-        <source src="${url}" type="video/mp4">
-        Tu navegador no soporta la reproducción de video.
-      </video>`;
-    
-    videoActual = document.getElementById('video-secundario');
-  } else {
-    imagenPrincipal.innerHTML = `<img src="${url}" alt="Imagen del producto" style="width: 100%;">`;
-    videoActual = null;
+  .imagenes-carrusel,
+  .info-producto {
+    flex: 1 1 100%;
   }
 }
 
-flechaIzquierda.addEventListener('click', () => {
-  mostrarImagen(indiceImagen - 1);
-});
+#select-talla {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #b99623;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 1rem;
+}
 
-flechaDerecha.addEventListener('click', () => {
-  mostrarImagen(indiceImagen + 1);
-});
+#select-talla:focus {
+  border-color: #a3821b;
+  box-shadow: 0 0 8px #b99623;
+}
 
-inputCantidad.addEventListener('blur', () => {
-  let val = parseInt(inputCantidad.value, 10);
-  if (isNaN(val) || val < 1) val = 1;
-  if (val > stockActual) val = stockActual;
-  inputCantidad.value = val;
-});
+#input-cantidad {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #b99623;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  width: 80px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-bottom: 1rem;
+}
 
-agregarCarritoBtn.addEventListener('click', () => {
-  const tallaSeleccionada = selectTalla.value;
-  const cantidad = parseInt(inputCantidad.value, 10);
-
-  if (!tallaSeleccionada) {
-    mostrarToast('Por favor selecciona una talla.');
-    return;
-  }
-  if (isNaN(cantidad) || cantidad < 1) {
-    mostrarToast('Por favor ingresa una cantidad válida.');
-    return;
-  }
-  if (cantidad > stockActual) {
-    mostrarToast(`No puedes agregar más de ${stockActual} unidades disponibles.`);
-    return;
-  }
-
-  const indexExistente = carrito.findIndex(item => item.id === productoId && item.talla === tallaSeleccionada);
-
-  if (indexExistente >= 0) {
-    const nuevoTotal = carrito[indexExistente].cantidad + cantidad;
-    if (nuevoTotal > stockActual) {
-      mostrarToast(`No puedes tener más de ${stockActual} unidades de este producto en el carrito.`);
-      return;
-    }
-    carrito[indexExistente].cantidad = nuevoTotal;
-  } else {
-    carrito.push({
-      id: productoId,
-      nombre: nombreEl.textContent,
-      precio: parseFloat(precioEl.textContent),
-      imagen: producto.imagen || '', // se usa solo la imagen principal
-      talla: tallaSeleccionada,
-      cantidad: cantidad,
-      stock: stockActual
-    });
-  }
-
-  localStorage.setItem('carrito', JSON.stringify(carrito));
-
-  mostrarToast(`Agregaste "${nombreEl.textContent}" (talla ${tallaSeleccionada}) al carrito.`);
-
-  inputCantidad.value = 1;
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  cargarProducto(productoId);
-});
-
-function mostrarToast(mensaje) {
-  let container = document.querySelector('.toast-container');
-  if (!container) {
-    container = document.createElement('div');
-    container.classList.add('toast-container');
-    document.body.appendChild(container);
-  }
-  const toast = document.createElement('div');
-  toast.classList.add('toast');
-  toast.textContent = mensaje;
-  container.appendChild(toast);
-
-  void toast.offsetWidth;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => {
-      container.removeChild(toast);
-    }, 300);
-  }, 3000);
+#input-cantidad:focus {
+  border-color: #a3821b;
+  box-shadow: 0 0 8px #b99623;
 }
