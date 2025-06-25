@@ -664,7 +664,7 @@ btnTramitar.addEventListener('click', () => {
 
   mensaje += '*¡Gracias!*';
 
-  const numeroWhatsApp = "51928522337";
+  const numeroWhatsApp = "51917998856";
   const urlWhatsapp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
   window.open(urlWhatsapp, '_blank');
 });
