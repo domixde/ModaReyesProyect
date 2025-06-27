@@ -659,3 +659,19 @@ body {
   cursor: not-allowed;
   box-shadow: none;
 }
+
+/* Estilo para los puntitos de color */
+.color-indicators {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid #ddd; 
+}
