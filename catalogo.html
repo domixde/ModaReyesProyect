@@ -35,12 +35,14 @@
         <li><a href="contacto.html" aria-label="Contáctanos"><i class="fas fa-envelope"></i></a></li>
 
         <li>
-          <a href="https://www.facebook.com/profile.php?id=61577805237470" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <a href="https://www.facebook.com/profile.php?id=61577805237470" target="_blank" rel="noopener noreferrer"
+            aria-label="Facebook">
             <i class="fab fa-facebook-f"></i>
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/modareyes2025/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <a href="https://www.instagram.com/modareyes2025/" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram">
             <i class="fab fa-instagram"></i>
           </a>
         </li>
@@ -76,6 +78,7 @@
     </div>
   </header>
 
+  <!-- Contenedor para la búsqueda desplegable -->
   <div id="busqueda-container" class="busqueda-container" hidden>
     <input type="text" id="input-buscar" placeholder="Buscar vestido..." aria-label="Buscar vestido" />
   </div>
@@ -132,7 +135,7 @@
             <button class="filtro-color" data-color="Amarillo" style="background:#ff0" title="Amarillo"></button>
             <button class="filtro-color" data-color="Naranja" style="background:#fa0" title="Naranja"></button>
             <button class="filtro-color" data-color="Morado" style="background:#80f" title="Morado"></button>
-            </div>
+          </div>
         </div>
 
         <div class="filtro-precio">
@@ -143,14 +146,13 @@
 
         <div class="filtro-material">
           <h3>Material</h3>
-          <button class="filtro-material-btn" data-material="Lino">Lino</button>
-          <button class="filtro-material-btn" data-material="Algodón">Algodón</button>
-          <button class="filtro-material-btn" data-material="Seda">Seda</button>
-          <button id="mostrar-mas-materiales">+ Más materiales ▼</button>
-          <div class="materiales-ocultos" hidden>
-            <button class="filtro-material-btn" data-material="Poliéster">Poliéster</button>
-            <button class="filtro-material-btn" data-material="Rayón">Rayón</button>
+          <div class="filtro-opciones">
+            <div class="materiales-visibles">
             </div>
+            <button id="btn-mostrar-mas-materiales" class="btn-mas-opciones" hidden>+ Más materiales ▼</button>
+            <div class="materiales-ocultos" hidden>
+            </div>
+          </div>
         </div>
 
         <button id="btn-borrar-filtros" disabled>Borrar filtros</button>
@@ -158,7 +160,7 @@
       </aside>
 
       <section id="productos-container" class="catalogo" aria-live="polite" aria-label="Catálogo de productos">
-        </section>
+      </section>
     </div>
   </main>
 
@@ -173,7 +175,7 @@
       <button id="cerrar-carrito" aria-label="Cerrar carrito">&times;</button>
     </header>
     <div id="carrito-items" class="carrito-items">
-      </div>
+    </div>
     <div class="carrito-footer">
       <div id="carrito-total" class="carrito-total">
         Total: <span id="total-importe">S/0.00</span>
