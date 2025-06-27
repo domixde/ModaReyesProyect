@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/detalle.css" />
-</head>
+    </head>
 
 <body class="center-title">
 
@@ -48,7 +48,6 @@
         <h1 class="titulo-tienda">MODA REYES</h1>
 
         <div class="busqueda-carrito">
-
             <div class="btn-buscar-container">
                 <button class="btn-buscar" aria-label="Buscar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#D4AF37" viewBox="0 0 24 24">
@@ -58,8 +57,7 @@
                     <span class="texto-buscar">Buscar</span>
                 </button>
             </div>
-
-        </div>
+            </div>
 
     </header>
 
@@ -77,12 +75,20 @@
             <h2 id="nombre"></h2>
             <p><strong>Categoría:</strong> <span id="categoria"></span></p>
             <p><strong>Precio:</strong> S/<span id="precio"></span></p>
-            <p><strong>Tallas disponibles:</strong> <span id="tallas"></span></p>
+            
+            <p><strong>Tallas disponibles:</strong></p>
+            <div id="tallas-botones-container" class="size-options">
+                </div>
+            
             <p><strong>Stock:</strong> <span id="stock"></span></p>
+            
+            <p><strong>Colores:</strong>
+                <div id="colores-container" class="color-options">
+                    </div>
+            </p>
+            <p><strong>Material:</strong> <span id="material"></span></p>
             <p id="descripcion"></p>
-            <p><strong>Selecciona talla:</strong></p>
-            <select id="select-talla" aria-label="Seleccionar talla">
-            </select>
+            
             <p><strong>Cantidad:</strong></p>
             <input type="number" id="input-cantidad" min="1" value="1" aria-label="Cantidad" style="width: 60px;">
 
@@ -90,14 +96,20 @@
         </div>
     </div>
 
+    <section class="productos-relacionados">
+        <h2>Productos que también te pueden interesar</h2>
+        <div id="productos-relacionados-container" class="related-products-grid">
+            </div>
+    </section>
+
     <script src="assets/js/menu.js" type="module"></script>
     <script src="assets/js/detalle.js" type="module"></script>
-    <script src="assets/js/lateral.js" type="module"></script>
+    <script src="assets/js/lateral.js" type="module"></script> 
 
 </body>
     
 <footer>
-        <p>&copy; 2025 Moda Reyes</p>
-    </footer>
+    <p>&copy; 2025 Moda Reyes</p>
+</footer>
 
 </html>
